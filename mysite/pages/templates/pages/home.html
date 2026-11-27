@@ -1,0 +1,30 @@
+{% extends 'pages/base.html' %}
+{% load static humanize %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Best deals for your garage</h1>
+    <p>Quality tools, car parts and accessories at prices you will love.</p>
+    <a class="btn btn-light" href="#deals">Shop deals</a>
+</section>
+
+<section id="deals" class="container">
+    <h2>Today's Deals</h2>
+    <div class="cards">
+        {% for p in products %}
+        <div class="card">
+            <div class="badge">{{ p.discount }}% OFF</div>
+            <img src="{% static p.image %}" alt="{{ p.name }}">
+            <div class="card-body">
+                <h3>{{ p.name }}</h3>
+                <p class="desc">{{ p.desc }}</p>
+                <p class="price">&#8377;{{ p.price|intcomma }} <span class="old">&#8377;{{ p.old_price|intcomma }}</span></p>
+                <a class="btn" href="{% url 'contact' %}?product={{ p.slug }}">Contact seller</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
